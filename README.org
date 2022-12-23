@@ -1,0 +1,3 @@
+* =haskell-from-nix=
+
+My toy project for compiling cabal-based haskell projects using nix.
