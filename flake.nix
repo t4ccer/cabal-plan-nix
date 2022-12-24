@@ -50,7 +50,7 @@
           example = {
             inherit pkgs;
             src = ./example;
-            # Optional if you're plan file is named `plan.nix`.
+            # Optional if your plan file is named `plan.nix`.
             planFile = ./example/plan.nix;
             id = "example-0.1.0.0-inplace-example";
           };
