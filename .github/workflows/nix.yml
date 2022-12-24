@@ -14,6 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v18
-      - run:
-          | sed -i 's/nixpkgs.lib.systems.flakeExposed/["x86_64-linux"]/g' flake.nix
-          | nix flake check -L
+      - run: |
+          sed -i 's/nixpkgs.lib.systems.flakeExposed/["x86_64-linux"]/g' flake.nix
+          nix flake check -L
