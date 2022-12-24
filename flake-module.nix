@@ -124,7 +124,7 @@ in {
               then throw "Unsupported package source type: ${p.pkg-src.type}"
               else let
                 tarball = pkgs.fetchurl {
-                  url = "https://${p.pkg-src.repo.uri}/package/${p.pkg-name}/${getNameVer p}.tar.gz";
+                  url = "${p.pkg-src.repo.uri}package/${p.pkg-name}/${getNameVer p}.tar.gz";
                   sha256 = p.pkg-src-sha256;
                 };
               in
