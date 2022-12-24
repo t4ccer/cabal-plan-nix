@@ -1,2 +1,3 @@
 example/dist-newstyle
 result*
+/.pre-commit-config.yaml
