@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "cabal-plan-nix";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -63,6 +63,7 @@
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
     # TODO: buildCabalPackages - detect all local packages and build them
+    # TODO: additional build inputs
 
     buildCabalPackage = {
       pkgs,
