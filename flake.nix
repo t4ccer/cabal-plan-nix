@@ -46,13 +46,18 @@
 
     packages.x86_64-linux = let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
-    in {
+    in rec {
       default = self.buildCabalPackage {
         inherit pkgs;
         src = ./example;
         plan = ./example/plan.nix;
         id = "example-0.1.0.0-inplace-example";
       };
+      # TODO: Make it less tedious
+      binary = pkgs.runCommand "binary-only" {} ''
+        mkdir -p $out/bin
+        cp ${default}/dist-newstyle/build/x86_64-linux/ghc-9.2.5/example-0.1.0.0/x/example/build/example/example $out/bin/.
+      '';
     };
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
@@ -124,7 +129,6 @@
             runHook postInstall
           '';
           dontConfigure = true;
-          dontFixup = true;
         };
       fetchFromHackage = p:
         if p.pkg-src.type != "repo-tar"
