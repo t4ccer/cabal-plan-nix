@@ -27,7 +27,7 @@
         # instead use: inputs.cabal-plan-nix.flakeModule
         ./flake-module.nix
       ];
-      systems = ["x86_64-linux"];
+      systems = nixpkgs.lib.systems.flakeExposed;
       flake = {
         flakeModule = ./flake-module.nix;
       };

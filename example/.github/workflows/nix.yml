@@ -1,0 +1,19 @@
+name: "nix"
+on:
+  pull_request:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+      - run: nix build -L .#example
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+      - run:
+          | sed -i 's/nixpkgs.lib.systems.flakeExposed/["x86_64-linux"]/g' flake.nix
+          | nix flake check -L
