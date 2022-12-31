@@ -38,6 +38,12 @@ in {
               description = "Package set to use";
             };
 
+            ghc = lib.mkOption {
+              type = types.package;
+              description = "GHC to use";
+              default = pkgs.haskell.compiler.ghc925;
+            };
+
             planFile = lib.mkOption {
               type = types.path;
               default = "${cfg.src}/plan.nix";
@@ -82,7 +88,7 @@ in {
                 version = installPlan.${id}.pkg-version;
                 inherit src;
                 buildInputs = [
-                  pkgs.haskell.compiler.ghc925
+                  app.ghc
                   pkgs.haskellPackages.cabal-install
                 ];
                 buildPhase = ''
