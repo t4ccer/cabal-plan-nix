@@ -36,6 +36,7 @@ in {
 
             pkgs = lib.mkOption {
               description = "Package set to use";
+              default = pkgs;
             };
 
             ghc = lib.mkOption {
