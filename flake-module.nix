@@ -129,17 +129,24 @@ in {
             fetchFromHackage = p:
               if p.pkg-src.type != "repo-tar"
               then throw "Unsupported package source type: ${p.pkg-src.type}"
-              else let
-                tarball = pkgs.fetchurl {
-                  url = "${p.pkg-src.repo.uri}package/${p.pkg-name}/${getNameVer p}.tar.gz";
-                  sha256 = p.pkg-src-sha256;
+              else
+                pkgs.stdenvNoCC.mkDerivation {
+                  name = "${p.pkg-name}/${getNameVer p}.tar.gz";
+                  version = p.pkg-version;
+                  src = pkgs.fetchurl {
+                    url = "${p.pkg-src.repo.uri}package/${p.pkg-name}/${getNameVer p}.tar.gz";
+                    sha256 = p.pkg-src-sha256;
+                  };
+                  installPhase = ''
+                    runHook preInstall
+
+                    mkdir unpacked
+                    tar -C unpacked -xf "$src"
+                    mv unpacked/${getNameVer p} $out
+
+                    runHook postInstall
+                  '';
                 };
-              in
-                pkgs.runCommand "unpack-${p.pkg-name}" {} ''
-                  mkdir unpacked
-                  tar -C unpacked -xf ${tarball}
-                  mv unpacked/${getNameVer p} $out
-                '';
           in
             buildLocal app.id app.src;
         in {
