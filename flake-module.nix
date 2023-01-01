@@ -37,17 +37,18 @@ in {
             pkgs = lib.mkOption {
               description = "Package set to use";
               default = pkgs;
+              defaultText = "`pkgs` from `flake-parts`";
             };
 
-            ghc = lib.mkOption {
-              type = types.package;
-              description = "GHC to use";
-              default = pkgs.haskell.compiler.ghc925;
+            ghc = lib.mkPackageOption pkgs "GHC" {
+              default = ["haskell" "compiler" "ghc925"];
+              example = lib.literalExample "pkgs.haskell.compiler.ghc921";
             };
 
             planFile = lib.mkOption {
               type = types.path;
               default = "${cfg.src}/plan.nix";
+              defaultText = "src/plan.nix";
               description = "Path to plan.nix file.";
             };
 
