@@ -1,3 +1,39 @@
 * =cabal-plan-nix=
 
 My toy project for compiling cabal-based haskell projects using nix.
+
+** Usage (using =flake.parts=)
+- Add =github:t4ccer/cabal-plan-nix= to your inputs
+- Add =inputs.cabal-plan-nix.flakeModule= to =imports=
+- Run =nix run =github:t4ccer/cabal-plan-nix#plan2nix= in your Haskell project root
+  You'll need to rerun this on every change in dependencies
+- Define your packages:
+  #+begin_src nix
+    cabalPackages = {
+      yourHaskellPackage = {
+        src = ./.; # Your Haskell project root
+        id = "example-0.1.0.0-inplace-example"; # Take this from plan.nix
+      };
+    };
+  #+end_src
+
+
+** Roadmap/Known limitations
+
+*** DONE Build simple packages
+
+*** TODO Support packages with multiple components
+Examples: =lens=
+
+*** TODO Allow to specify build time dependencies
+Ideally allow it per component to prevent huge recompilations
+
+** License
+
+Copyright (C) 2022 Tomasz Maciosowski (t4ccer)
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
