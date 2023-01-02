@@ -20,12 +20,17 @@ My toy project for compiling cabal-based haskell projects using nix.
 
 ** Roadmap/Known limitations
 
-*** DONE Build simple packages
+*** Build simple packages
+Status: Done
 
-*** TODO Support packages with multiple components
+*** Support packages with multiple components
+Status: Pending
+
 Examples: =lens=
 
-*** TODO Allow to specify build time dependencies
+*** Allow to specify build time dependencies
+Status: Pending
+
 Ideally allow it per component to prevent huge recompilations
 
 ** License
